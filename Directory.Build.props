@@ -1,0 +1,11 @@
+<Project>
+	<PropertyGroup>
+		<Version>0.1.0</Version>
+		<Authors>Byndyusoft</Authors>
+		<PackageTags>Byndyusoft;Data;Relational;QueryBuilder</PackageTags>
+		<RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Data.Relational.QueryBuilder</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Nullable>enable</Nullable>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
+</Project>
