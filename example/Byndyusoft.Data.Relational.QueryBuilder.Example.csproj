@@ -6,7 +6,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Byndyusoft.Data.Relational" Version="0.7.0" />
+		<PackageReference Include="Byndyusoft.Data.Relational" Version="0.8.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1" />
