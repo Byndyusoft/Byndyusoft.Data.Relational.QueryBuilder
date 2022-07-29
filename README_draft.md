@@ -6,6 +6,8 @@
 
 Для стандартных запросов, в которых участвую все колонки (SELECT, UPDATE, INSERT) не придется беспокоиться о том, что добавится или удалится новая колонка.
 
+Ниже описаны стандартные сценарии использования.
+
 # Сценарии использования
 
 ## Модель данных для примеров
@@ -205,36 +207,90 @@ public class CompanyReportDtoRepository : DbSessionConsumer
 
 ## Insert
 
-Пример.
+Пример вставки компании:
 
 ```csharp
-TBDL
+public async Task InsertAsync(Company company, CancellationToken cancellationToken)
+{
+  var queryObject = InsertQueryBuilder<Company>
+    .For(company, TableNames.Company)
+    .InsertAllPublicValues()
+    .Build();
+  var id = await DbSession.ExecuteScalarAsync<long>(queryObject, cancellationToken: cancellationToken);
+  company.Id = id;
+}
 ```
 
 ## Update
 
-Пример с обновлениями всех колонок.
+### Обновление всех полей
+
+Пример обновления всех полей компании:
 
 ```csharp
-TBDL
+public async Task UpdateAsync(Company company, CancellationToken cancellationToken)
+{
+  var queryObject = UpdateItemQueryBuilder<Company>
+    .For(company, TableNames.Company)
+    .UpdateAllPublicValues()
+    .ById()
+    .Build();
+  await DbSession.ExecuteAsync(queryObject, cancellationToken: cancellationToken);
+}
 ```
 
-Пример с обновлениями части колонок.
+### Обновление одного поля
+
+Пример обновления ИНН компании:
 
 ```csharp
-TBDL
+public async Task UpdateInnAsync(long id, string inn, CancellationToken cancellationToken)
+{
+  var queryObject = UpdateQueryBuilder<Company>
+    .For(TableNames.Company)
+    .Set(i => i.Inn, inn)
+    .ById(id)
+    .Build();
+  await DbSession.ExecuteAsync(queryObject, cancellationToken: cancellationToken);
+}
 ```
 
 ## Delete
 
-Пример.
+Пример удаления компании:
 
 ```csharp
-TBDL
+public async Task DeleteByIdAsync(long id, CancellationToken cancellationToken)
+{
+  var queryObject = DeleteQueryBuilder<Company>
+    .For(TableNames.Company)
+    .ById(id)
+    .Build();
+  await DbSession.ExecuteAsync(queryObject, cancellationToken: cancellationToken);
+}
 ```
 
-## Запрос с использованием *StringExpressionMapper*
+## Произвольные запросы с использованием *ColumnConverter*
+
+Альтернативный пример получения *UserDto*, который был описан выше:
 
 ```csharp
-TBDL
+public async Task<UserDto?> GetByIdAlternativelyAsync(long id, CancellationToken cancellationToken)
+{
+  var columnConverter = new ColumnConverter(true);
+  var sql = columnConverter.Map<User, Company>((user, company) => $@"
+SELECT
+  {user.Login} AS {nameof(UserDto.Login)},
+  {user.Password} AS {nameof(UserDto.Password)},
+  {company.Name} AS {nameof(UserDto.CompanyName)}
+FROM
+  {TableNames.Users} u
+  INNER JOIN {TableNames.Company} c on {company.Id} = {user.CompanyId}
+WHERE
+  {user.Id} = @UserId", "u", "c");
+
+  var queryObject = new QueryObject(sql, new { UserId = id });
+  return await DbSession.QuerySingleOrDefaultAsync<UserDto>(queryObject,
+    cancellationToken: cancellationToken);
+}
 ```
