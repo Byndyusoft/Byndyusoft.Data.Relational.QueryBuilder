@@ -192,10 +192,10 @@ public class CompanyReportDtoRepository : DbSessionConsumer
     protected override void PrepareSelect()
     {
       SelectCollector.To<CompanyReportDto>()
-          .Get<User, long>(
-            dto => dto.UserCount,
-            u => $"SUM(CASE WHEN {u.Id} IS NULL THEN 0 ELSE 1 END)",
-            Aliases.Users)
+        .Get<User, long>(
+          dto => dto.UserCount,
+          u => $"SUM(CASE WHEN {u.Id} IS NULL THEN 0 ELSE 1 END)",
+          Aliases.Users)
         .From<Company>(Aliases.Company)
           .Get(c => c.Name, dto => dto.CompanyName);
     }
