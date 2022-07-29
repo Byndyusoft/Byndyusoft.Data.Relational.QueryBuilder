@@ -33,7 +33,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.DataAccess.Repositories
         {
             var queryObject = InsertQueryBuilder<Company>
                 .For(company, TableNames.Company)
-                .AllPublicValues()
+                .InsertAllPublicValues()
                 .Build();
             var id = await DbSession.ExecuteScalarAsync<long>(queryObject, cancellationToken: cancellationToken);
             company.Id = id;
