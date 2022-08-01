@@ -16,13 +16,13 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.DataAccess.Repositories
         {
         }
 
-        public async Task<Company?> GetById(long id, CancellationToken cancellationToken)
+        public async Task<Company?> GetByIdAsync(long id, CancellationToken cancellationToken)
         {
             var queryObject = new SelectQuery().ById(id).Build();
-            return await DbSession.QuerySingleOrDefaultAsync(queryObject, cancellationToken: cancellationToken);
+            return await DbSession.QuerySingleOrDefaultAsync<Company?>(queryObject, cancellationToken: cancellationToken);
         }
 
-        public async Task<Company[]> GetByName(string name, CancellationToken cancellationToken)
+        public async Task<Company[]> GetByNameAsync(string name, CancellationToken cancellationToken)
         {
             var queryObject = new SelectQuery().ByName(name).Build();
             var companies = await DbSession.QueryAsync<Company>(queryObject, cancellationToken: cancellationToken);

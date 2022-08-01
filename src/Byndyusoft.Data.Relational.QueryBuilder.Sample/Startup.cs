@@ -1,15 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Byndyusoft.Data.Relational.QueryBuilder.Sample.Migrations;
+using System.Text.Json.Serialization;
+using Byndyusoft.Data.Relational.QueryBuilder.Sample.Extensions;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.Sample
 {
@@ -26,8 +23,16 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMigration(Configuration);
+            services.AddSwaggerGen();
+
+            services.AddSampleApplication(Configuration);
             services.AddRelationalDb(NpgsqlFactory.Instance, Configuration.GetConnectionString("postgres"));
+
+            services.AddControllers()
+                .AddJsonOptions(json =>
+                {
+                    json.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,15 +43,18 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
+            app.UseSwagger()
+                .UseSwaggerUI(options =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample API");
+                    options.DisplayRequestDuration();
+                    options.DefaultModelRendering(ModelRendering.Model);
+                    options.DefaultModelExpandDepth(3);
                 });
-            });
+
+            app
+                .UseRouting()
+                .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
