@@ -7,15 +7,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Byndyusoft.Data.Relational.QueryBuilder.Sample.Migrations;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.Sample
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMigration(Configuration);
+            services.AddRelationalDb(NpgsqlFactory.Instance, Configuration.GetConnectionString("postgres"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
