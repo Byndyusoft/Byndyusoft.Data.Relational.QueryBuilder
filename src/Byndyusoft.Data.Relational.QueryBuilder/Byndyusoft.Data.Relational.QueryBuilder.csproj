@@ -8,5 +8,14 @@
 		<PackageReference Include="Byndyusoft.Data.Relational.Abstractions" Version="0.8.0" />
 		<PackageReference Include="Npgsql" Version="6.0.3" />
 	</ItemGroup>
+	
+	<PropertyGroup>
+		<PackageIcon>icon.png</PackageIcon>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="$(SolutionDir)\icon.png" Pack="true" PackagePath="icon.png" />
+	</ItemGroup>
 
 </Project>
