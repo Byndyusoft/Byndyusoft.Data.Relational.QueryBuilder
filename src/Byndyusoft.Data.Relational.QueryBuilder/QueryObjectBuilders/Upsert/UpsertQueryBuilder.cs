@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 using Byndyusoft.Data.Relational.QueryBuilder.Interfaces;
 using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
@@ -16,7 +16,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
         private readonly T _entity;
         private readonly string _tableName;
         private readonly ValueCollector _valueCollector;
-        private string _conflictColumnName = string.Empty;
+        private string[]? _conflictColumnNames = null;
 
         private UpsertQueryBuilder(T entity, string tableName, bool isPostgres)
         {
@@ -55,13 +55,16 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
             _valueCollector.Add(_columnConverter.ToColumnName(property.Name), property.Value);
         }
 
-        internal void SetConflictingProperty<TProp>(Expression<Func<T, TProp>> property)
+        internal void SetConflictingProperties<TProp>(params Expression<Func<T, TProp>>[] property)
         {
-            _conflictColumnName = _columnConverter.ToColumnName(property);
+            _conflictColumnNames = property.Select(propertyExpression => _columnConverter.ToColumnName(propertyExpression)).ToArray();
         }
 
         public QueryObject Build()
         {
+            if (_conflictColumnNames == null)
+                throw new InvalidOperationException("Conflict column names are not set");
+
             var sql = new StringBuilder();
 
             var fieldParameters = _valueCollector.FieldParameters;
@@ -69,10 +72,11 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
             sql.Append(insertIntoStatement);
             var insertValues = $"VALUES ({string.Join(", ", fieldParameters.Select(x => x.ParamName))})";
             sql.Append(insertValues);
-            sql.Append($" ON CONFLICT({_conflictColumnName}) DO Update SET ");
+            var columnNames = string.Join(", ", _conflictColumnNames);
+            sql.Append($" ON CONFLICT({columnNames}) DO Update SET ");
 
             var updateElements = fieldParameters
-                .Where(x => x.Field != _conflictColumnName)
+                .Where(x => _conflictColumnNames.Contains(x.Field) == false)
                 .Select(x => $"{x.Field} = EXCLUDED.{x.Field} ")
                 .ToArray();
             sql.Append(string.Join(", ", updateElements));
