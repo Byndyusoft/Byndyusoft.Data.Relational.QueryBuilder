@@ -19,7 +19,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
             return _builder;
         }
 
-        public UpsertQueryBuilder<T> WithConflictingProperties<TProp>(params Expression<Func<T, TProp>>[] properties)
+        public UpsertQueryBuilder<T> WithConflictingProperties(params Expression<Func<T, object>>[] properties)
         {
             _builder.SetConflictingProperties(properties);
             return _builder;
