@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -77,6 +77,12 @@ WHERE {Conditionals.GetConditional()}";
         public TBuilder WhereIsIn<TProp>(Expression<Func<T, TProp>> action, IReadOnlyCollection<TProp> values)
         {
             Conditionals.AddIn(action, values);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsNotIn<TProp>(Expression<Func<T, TProp>> action, IReadOnlyCollection<TProp> values)
+        {
+            Conditionals.AddNotIn(action, values);
             return (TBuilder)this;
         }
     }

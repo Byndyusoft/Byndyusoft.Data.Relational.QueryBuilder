@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -253,6 +253,33 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
         {
             var columnName = ColumnConverter.ToColumnName(func, tableAlias);
             AddInForExpression(columnName, values);
+        }
+
+        public void AddNotInForExpression<TProp>(string expression, IReadOnlyCollection<TProp> values)
+        {
+            if (ColumnConverter.IsPostgres == false)
+                AddFormattableString($"{expression} NOT IN {values.ToArray()}", 0);
+            else
+                AddFormattableString($"{expression} != ALL(ARRAY[{values.ToArray()}])", 0);
+        }
+
+        public void AddNotIn<TProp>(string columnName, IReadOnlyCollection<TProp> values, string? tableAlias = null)
+        {
+            var columnNameWithAlias = ColumnConverter.ToColumnName(columnName, tableAlias);
+            AddNotInForExpression(columnNameWithAlias, values);
+        }
+
+        public void AddNotIn<T, TProp>(Expression<Func<T, TProp>> func, IReadOnlyCollection<TProp> values, string? tableAlias = null)
+        {
+            var columnName = ColumnConverter.ToColumnName(func, tableAlias);
+            AddNotInForExpression(columnName, values);
+        }
+
+        public void AddNotIn<T, TProp>(Expression<Func<T, TProp?>> func, IReadOnlyCollection<TProp> values, string? tableAlias = null)
+            where TProp : struct
+        {
+            var columnName = ColumnConverter.ToColumnName(func, tableAlias);
+            AddNotInForExpression(columnName, values);
         }
 
         public ConditionalCollectorWrapper<T> For<T>(string? tableAlias = null)

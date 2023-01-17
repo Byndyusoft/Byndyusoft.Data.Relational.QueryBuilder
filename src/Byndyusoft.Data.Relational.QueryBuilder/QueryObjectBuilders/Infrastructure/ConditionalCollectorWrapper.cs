@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -79,6 +79,19 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             where TProp : struct
         {
             _conditionalCollector.AddIn(property, values, TableAlias);
+            return this;
+        }
+
+        public ConditionalCollectorWrapper<T> AddNotIn<TProp>(Expression<Func<T, TProp>> property, IReadOnlyCollection<TProp> values)
+        {
+            _conditionalCollector.AddNotIn(property, values, TableAlias);
+            return this;
+        }
+
+        public ConditionalCollectorWrapper<T> AddNotIn<TProp>(Expression<Func<T, TProp?>> property, IReadOnlyCollection<TProp> values)
+            where TProp : struct
+        {
+            _conditionalCollector.AddNotIn(property, values, TableAlias);
             return this;
         }
 
