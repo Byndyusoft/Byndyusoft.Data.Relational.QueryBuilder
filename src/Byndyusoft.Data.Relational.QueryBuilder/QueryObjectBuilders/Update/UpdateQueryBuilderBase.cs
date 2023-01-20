@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 using Dapper;
@@ -62,6 +62,14 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Update
             return (TBuilder)this;
         }
 
+        public TBuilder SetCustomValue<T, TProp>(Expression<Func<T, TProp>> action, object? customValue)
+        {
+            var fieldName = ColumnConverter.ToColumnName(action);
+
+            Set(fieldName, customValue);
+            return (TBuilder)this;
+        }
+
         public TBuilder From<T>(Expression<Func<T, string>> formatString, string? table2Alias = null, object? parametersObj = null)
         {
             _from = QueryBuilder<T>.For(ColumnConverter).Get(formatString, table2Alias);
@@ -103,6 +111,12 @@ WHERE {Conditionals.GetConditional()}";
         public TBuilder Set<TProp>(Expression<Func<T, TProp>> action, TProp value)
         {
             Set<T, TProp>(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder SetCustomValue<TProp>(Expression<Func<T, TProp>> action, object? customValue)
+        {
+            SetCustomValue<T, TProp>(action, customValue);
             return (TBuilder)this;
         }
 
