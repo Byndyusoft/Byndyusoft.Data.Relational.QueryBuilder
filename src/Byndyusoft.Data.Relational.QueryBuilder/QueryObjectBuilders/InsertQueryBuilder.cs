@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 using Dapper;
@@ -59,6 +59,22 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
         {
             string fieldName = ColumnConverter.ToColumnName(action);
             var value = ExpressionsCache<T, TProp>.Get(action)(item);
+
+            Value(fieldName, value);
+            return this;
+        }
+
+        public InsertQueryBuilder Value<T, TProp>(Expression<Func<T, TProp>> action, TProp value)
+        {
+            string fieldName = ColumnConverter.ToColumnName(action);
+
+            Value(fieldName, value);
+            return this;
+        }
+
+        public InsertQueryBuilder CustomValue<T, TProp>(Expression<Func<T, TProp>> action, object? value)
+        {
+            string fieldName = ColumnConverter.ToColumnName(action);
 
             Value(fieldName, value);
             return this;
@@ -164,6 +180,12 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
         public InsertQueryBuilder<T> Value<TProp>(Expression<Func<T, TProp>> action)
         {
             Value(Entity, action);
+            return this;
+        }
+
+        public InsertQueryBuilder CustomValue<TProp>(Expression<Func<T, TProp>> action, object? customValue)
+        {
+            CustomValue<T, TProp>(action, customValue);
             return this;
         }
 
