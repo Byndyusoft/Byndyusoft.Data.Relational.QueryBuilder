@@ -182,7 +182,13 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             AddBinary(func, value, "=", tableAlias);
         }
 
-        public void AddNotEquals<T, TProp>(Expression<Func<T, TProp>> func, TProp value, string? tableAlias)
+        public void AddNotEquals<T, TProp>(Expression<Func<T, TProp>> func, TProp value, string? tableAlias = null)
+        {
+            AddBinary(func, value, "!=", tableAlias);
+        }
+
+        public void AddNotEquals<T, TProp>(Expression<Func<T, TProp?>> func, TProp value, string? tableAlias = null)
+            where TProp : struct
         {
             AddBinary(func, value, "!=", tableAlias);
         }
@@ -192,13 +198,24 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             AddBinary(func, value, "<", tableAlias);
         }
 
+        public void AddLess<T, TProp>(Expression<Func<T, TProp?>> func, TProp value, string? tableAlias = null)
+            where TProp : struct
+        {
+            AddBinary(func, value, "<", tableAlias);
+        }
+
         public void AddLess<TProp>(string columnName, TProp value, string? tableAlias = null)
         {
             AddBinary(columnName, value, "<", tableAlias);
         }
 
-
         public void AddLessOrEqual<T, TProp>(Expression<Func<T, TProp>> func, TProp value, string? tableAlias = null)
+        {
+            AddBinary(func, value, "<=", tableAlias);
+        }
+
+        public void AddLessOrEqual<T, TProp>(Expression<Func<T, TProp?>> func, TProp value, string? tableAlias = null)
+            where TProp : struct
         {
             AddBinary(func, value, "<=", tableAlias);
         }
@@ -213,12 +230,24 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             AddBinary(func, value, ">", tableAlias);
         }
 
+        public void AddGreater<T, TProp>(Expression<Func<T, TProp?>> func, TProp value, string? tableAlias = null)
+            where TProp : struct
+        {
+            AddBinary(func, value, ">", tableAlias);
+        }
+
         public void AddGreater<TProp>(string columnName, TProp value, string? tableAlias = null)
         {
             AddBinary(columnName, value, ">", tableAlias);
         }
 
         public void AddGreaterOrEqual<T, TProp>(Expression<Func<T, TProp>> func, TProp value, string? tableAlias = null)
+        {
+            AddBinary(func, value, ">=", tableAlias);
+        }
+
+        public void AddGreaterOrEqual<T, TProp>(Expression<Func<T, TProp?>> func, TProp value, string? tableAlias = null)
+            where TProp : struct
         {
             AddBinary(func, value, ">=", tableAlias);
         }

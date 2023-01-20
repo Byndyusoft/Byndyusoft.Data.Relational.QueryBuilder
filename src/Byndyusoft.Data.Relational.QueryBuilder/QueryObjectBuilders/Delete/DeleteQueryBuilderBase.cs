@@ -62,6 +62,26 @@ WHERE {Conditionals.GetConditional()}";
             return (TBuilder)this;
         }
 
+        public TBuilder WhereEquals<TProp>(Expression<Func<T, TProp?>> property, TProp value)
+            where TProp : struct
+        {
+            Conditionals.AddEquals(property, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereNotEquals<TProp>(Expression<Func<T, TProp>> property, TProp value)
+        {
+            Conditionals.AddNotEquals(property, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereNotEquals<TProp>(Expression<Func<T, TProp?>> property, TProp value)
+            where TProp : struct
+        {
+            Conditionals.AddNotEquals(property, value);
+            return (TBuilder)this;
+        }
+
         public TBuilder WhereIsNull<TProp>(Expression<Func<T, TProp>> action)
         {
             Conditionals.AddNull(action);
@@ -80,9 +100,75 @@ WHERE {Conditionals.GetConditional()}";
             return (TBuilder)this;
         }
 
+        public TBuilder WhereIsIn<TProp>(Expression<Func<T, TProp?>> action, IReadOnlyCollection<TProp> values)
+            where TProp : struct
+        {
+            Conditionals.AddIn(action, values);
+            return (TBuilder)this;
+        }
+
         public TBuilder WhereIsNotIn<TProp>(Expression<Func<T, TProp>> action, IReadOnlyCollection<TProp> values)
         {
             Conditionals.AddNotIn(action, values);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsNotIn<TProp>(Expression<Func<T, TProp?>> action, IReadOnlyCollection<TProp> values)
+            where TProp : struct
+        {
+            Conditionals.AddNotIn(action, values);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsLess<TProp>(Expression<Func<T, TProp>> action, TProp value)
+        {
+            Conditionals.AddLess(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsLess<TProp>(Expression<Func<T, TProp?>> action, TProp value)
+            where TProp : struct
+        {
+            Conditionals.AddLess(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsLessOrEqual<TProp>(Expression<Func<T, TProp>> action, TProp value)
+        {
+            Conditionals.AddLessOrEqual(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsLessOrEqual<TProp>(Expression<Func<T, TProp?>> action, TProp value)
+            where TProp : struct
+        {
+            Conditionals.AddLessOrEqual(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsGreater<TProp>(Expression<Func<T, TProp>> action, TProp value)
+        {
+            Conditionals.AddGreater(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsGreater<TProp>(Expression<Func<T, TProp?>> action, TProp value)
+            where TProp : struct
+        {
+            Conditionals.AddGreater(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsGreaterOrEqual<TProp>(Expression<Func<T, TProp>> action, TProp value)
+        {
+            Conditionals.AddGreaterOrEqual(action, value);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsGreaterOrEqual<TProp>(Expression<Func<T, TProp?>> action, TProp value)
+            where TProp : struct
+        {
+            Conditionals.AddGreaterOrEqual(action, value);
             return (TBuilder)this;
         }
     }
