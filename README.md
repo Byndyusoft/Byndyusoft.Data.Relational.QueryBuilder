@@ -1,17 +1,22 @@
 # Byndyusoft.Data.Relational.QueryBuilder [![Nuget](https://img.shields.io/nuget/v/Byndyusoft.Data.Relational.QueryBuilder.svg)](https://www.nuget.org/packages/Byndyusoft.Data.Relational.QueryBuilder/) [![Downloads](https://img.shields.io/nuget/dt/Byndyusoft.Data.Relational.QueryBuilder.svg)](https://www.nuget.org/packages/Byndyusoft.Data.Relational.QueryBuilder/)
 
-Библиотека для постороения запросов.
+This library allows to create SQL queries.
 
-Основная концепция библиотеки заключается в том, чтобы в запросах не использовать строковые константы для названий колонок. Так можно бьть увереннее и спокойнее рефакторить код. К тому же не нужно будет проверять постоянно, правильно ли написаны типовые (и не очень) запросы.
+The main concept of the library is to avoid using string constants for column names in queries. This would allow to be more confident and peaceful while performing code refactoring. Additionally, this can reduce the need to check if queries are written correctly.
 
-Для стандартных запросов, в которых участвую все колонки (SELECT, UPDATE, INSERT) не придется беспокоиться о том, что добавится или удалится новая колонка.
+For standard queries that involve all columns (SELECT, UPDATE, INSERT), you won't need to worry about adding or deleting a new column.
 
-Ниже описаны стандартные сценарии использования.
+Below are the descriptions of standard use cases.
 
-# Сценарии использования
+# Installing
+```
+dotnet add package Byndyusoft.Data.Relational.QueryBuilder 
+```
 
-## Модель данных для примеров
-Для примеро будем использовать следующую модель данных.
+# Usage
+
+## Data model for examples
+We will use the following data model for the examples.
 
 ```csharp
 public class Company : IEntity
@@ -30,15 +35,14 @@ public class User : IEntity
 }
 ```
 
-Для запросов можно использовать любой тип для первичного ключа. Если использовать интерфейс *IEntity* для модели, в которых первичный ключ определен как *long*, то часть запросов будет проще, например, вставка всех полей, обновление всех полей, фильтр по ИД.
+Any type can be used for the primary key for queries. If the *IEntity* interface is used for models, where the primary key is defined as *long*, some queries will be easier, for example, inserting all fields, updating all fields, filtering by ID.
 
-Библиотека будет воспринимать все публичные свойства с присутствующими методами *get* и *set* как колонки таблицы. Их наименования будут соответствовать названиям колонок (для PostgreSQL используется форматирование SnakeCase).
-
+The library will treat all public properties with existing *get* and *set* methods as table columns. Their names will correspond to the column names (SnakeCase formatting is used for PostgreSQL).
 ## Select
 
-### Запрос сущности из таблицы
+### Querying an entity from a table.
 
-Для запросов SELECT нужно создать **SelectQuery** объект. Вот пример для сущности *Company*:
+You need to create a **SelectQuery** object to create a SELECT query. Here is an example for the *Company* entity:
 
 ```csharp
 public class SelectQuery : SelectQueryBuilderBase<SelectQuery>
@@ -67,7 +71,7 @@ public class SelectQuery : SelectQueryBuilderBase<SelectQuery>
 }
 ```
 
-Пример запросов на получении компании по ИД и по имени:
+Example queries to retrieve a Company by ID and by name:
 
 ```csharp
 public class CompanyRepository : DbSessionConsumer
@@ -91,9 +95,9 @@ public class CompanyRepository : DbSessionConsumer
 }
 ```
 
-### Запрос из нескольких таблиц с проекцией данных в DTO
+### Query from multiple tables with data projection into DTO
 
-Предположим, нам нужно получить информацию о пользователе в виде следующего объекта:
+Let's assume we need to obtain information about a user in the form of the following object:
 
 ```csharp
 public class UserDto
@@ -104,7 +108,7 @@ public class UserDto
 }
 ```
 
-Пример репозитория и объекта **SelectQuery**:
+Example of a repository and the **SelectQuery** object:
 
 ```csharp
 public class UserDtoRepository : DbSessionConsumer
@@ -148,9 +152,9 @@ public class UserDtoRepository : DbSessionConsumer
 }
 ```
 
-### Запрос из нескольких таблиц с агрегацией и сортировкой
+### Query from multiple tables with aggregation and sorting
 
-Предположим, нам нужно получить информацию о списке компаний с количеством пользователей:
+Let's suppose we need to obtain information about a list of companies with the number of users:
 
 ```csharp
 public class CompanyReportDto
@@ -160,7 +164,7 @@ public class CompanyReportDto
 }
 ```
 
-Пример репозитория и объекта **SelectQuery**:
+Example of a repository and the **SelectQuery** object:
 
 ```csharp
 public class CompanyReportDtoRepository : DbSessionConsumer
@@ -207,7 +211,7 @@ public class CompanyReportDtoRepository : DbSessionConsumer
 
 ## Insert
 
-Пример вставки компании:
+Example of inserting a Company:
 
 ```csharp
 public async Task InsertAsync(Company company, CancellationToken cancellationToken)
@@ -223,9 +227,9 @@ public async Task InsertAsync(Company company, CancellationToken cancellationTok
 
 ## Update
 
-### Обновление всех полей
+### Updating all fields
 
-Пример обновления всех полей компании:
+Example of updating all Company fields:
 
 ```csharp
 public async Task UpdateAsync(Company company, CancellationToken cancellationToken)
@@ -239,9 +243,9 @@ public async Task UpdateAsync(Company company, CancellationToken cancellationTok
 }
 ```
 
-### Обновление одного поля
+### Updating a single field
 
-Пример обновления ИНН компании:
+Example of updating the Company's tax identification number (INN):
 
 ```csharp
 public async Task UpdateInnAsync(long id, string inn, CancellationToken cancellationToken)
@@ -257,7 +261,7 @@ public async Task UpdateInnAsync(long id, string inn, CancellationToken cancella
 
 ## Delete
 
-Пример удаления компании:
+Example of deleting a Company:
 
 ```csharp
 public async Task DeleteByIdAsync(long id, CancellationToken cancellationToken)
@@ -270,9 +274,9 @@ public async Task DeleteByIdAsync(long id, CancellationToken cancellationToken)
 }
 ```
 
-## Произвольные запросы с использованием *ColumnConverter*
+## Custom queries using *ColumnConverter*
 
-Альтернативный пример получения *UserDto*, который был описан выше:
+An alternative example of fetching the *UserDto*, as written above:
 
 ```csharp
 public async Task<UserDto?> GetByIdAlternativelyAsync(long id, CancellationToken cancellationToken)
