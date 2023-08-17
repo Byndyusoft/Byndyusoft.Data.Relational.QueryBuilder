@@ -1,10 +1,10 @@
 # Byndyusoft.Data.Relational.QueryBuilder [![Nuget](https://img.shields.io/nuget/v/Byndyusoft.Data.Relational.QueryBuilder.svg)](https://www.nuget.org/packages/Byndyusoft.Data.Relational.QueryBuilder/) [![Downloads](https://img.shields.io/nuget/dt/Byndyusoft.Data.Relational.QueryBuilder.svg)](https://www.nuget.org/packages/Byndyusoft.Data.Relational.QueryBuilder/)
 
-Library for query building.
+This library allows to create SQL queries.
 
-The main concept of the library is to avoid using string constants for column names in queries. This allows for more confident and peaceful code refactoring. Additionally, there is no need to constantly check if the standard (or non-standard) queries are written correctly.
+The main concept of the library is to avoid using string constants for column names in queries. This would allow to be more confident and peaceful while performing code refactoring. Additionally, this can reduce the need to check if queries are written correctly.
 
-For standard queries that involve all columns (SELECT, UPDATE, INSERT), there is no need to worry about adding or deleting a new column.
+For standard queries that involve all columns (SELECT, UPDATE, INSERT), you won't need to worry about adding or deleting a new column.
 
 Below are the descriptions of standard use cases.
 
@@ -16,7 +16,7 @@ dotnet add package Byndyusoft.Data.Relational.QueryBuilder
 # Usage
 
 ## Data model for examples
-For the examples, we will use the following data model.
+We will use the following data model for the examples.
 
 ```csharp
 public class Company : IEntity
@@ -35,14 +35,14 @@ public class User : IEntity
 }
 ```
 
-For queries, any type can be used for the primary key. If the *IEntity* interface is used for models, where the primary key is defined as *long*, some queries will be easier, for example, inserting all fields, updating all fields, filtering by ID.
+Any type can be used for the primary key for queries. If the *IEntity* interface is used for models, where the primary key is defined as *long*, some queries will be easier, for example, inserting all fields, updating all fields, filtering by ID.
 
-The library will treat all public properties with corresponding *get* and *set* methods as table columns. Their names will correspond to the column names (SnakeCase formatting is used for PostgreSQL).
+The library will treat all public properties with existing *get* and *set* methods as table columns. Their names will correspond to the column names (SnakeCase formatting is used for PostgreSQL).
 ## Select
 
 ### Querying an entity from a table.
 
-To query an entity from a table, you need to create a **SelectQuery** object. Here is an example for the *Company* entity:
+You need to create a **SelectQuery** object to create a SELECT query. Here is an example for the *Company* entity:
 
 ```csharp
 public class SelectQuery : SelectQueryBuilderBase<SelectQuery>
@@ -71,7 +71,7 @@ public class SelectQuery : SelectQueryBuilderBase<SelectQuery>
 }
 ```
 
-Example queries to retrieve a company by ID and by name:
+Example queries to retrieve a Company by ID and by name:
 
 ```csharp
 public class CompanyRepository : DbSessionConsumer
@@ -211,7 +211,7 @@ public class CompanyReportDtoRepository : DbSessionConsumer
 
 ## Insert
 
-Example of a company insertion:
+Example of inserting a Company:
 
 ```csharp
 public async Task InsertAsync(Company company, CancellationToken cancellationToken)
@@ -229,7 +229,7 @@ public async Task InsertAsync(Company company, CancellationToken cancellationTok
 
 ### Updating all fields
 
-Example of updating all fields of a company:
+Example of updating all Company fields:
 
 ```csharp
 public async Task UpdateAsync(Company company, CancellationToken cancellationToken)
@@ -245,7 +245,7 @@ public async Task UpdateAsync(Company company, CancellationToken cancellationTok
 
 ### Updating a single field
 
-Example of updating the company's tax identification number (INN):
+Example of updating the Company's tax identification number (INN):
 
 ```csharp
 public async Task UpdateInnAsync(long id, string inn, CancellationToken cancellationToken)
@@ -261,7 +261,7 @@ public async Task UpdateInnAsync(long id, string inn, CancellationToken cancella
 
 ## Delete
 
-Example of deleting a company:
+Example of deleting a Company:
 
 ```csharp
 public async Task DeleteByIdAsync(long id, CancellationToken cancellationToken)
@@ -276,7 +276,7 @@ public async Task DeleteByIdAsync(long id, CancellationToken cancellationToken)
 
 ## Custom queries using *ColumnConverter*
 
-An alternative example of retrieving a *UserDto*, as described above:
+An alternative example of fetching the *UserDto*, as written above:
 
 ```csharp
 public async Task<UserDto?> GetByIdAlternativelyAsync(long id, CancellationToken cancellationToken)
