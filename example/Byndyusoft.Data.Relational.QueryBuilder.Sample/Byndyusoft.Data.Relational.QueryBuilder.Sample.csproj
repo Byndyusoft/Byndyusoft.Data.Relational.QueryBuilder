@@ -5,14 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Byndyusoft.Data.Relational.QueryBuilder\Byndyusoft.Data.Relational.QueryBuilder.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Byndyusoft.Data.Relational" Version="0.8.0" />
     <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
     <PackageReference Include="Npgsql" Version="6.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Byndyusoft.Data.Relational.QueryBuilder\Byndyusoft.Data.Relational.QueryBuilder.csproj" />
   </ItemGroup>
 
 </Project>
