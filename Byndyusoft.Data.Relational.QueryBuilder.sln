@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{B3485E80-675A-4F8C-9D83-29582F2BC5AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byndyusoft.Data.Relational.QueryBuilder.Sample", "src\Byndyusoft.Data.Relational.QueryBuilder.Sample\Byndyusoft.Data.Relational.QueryBuilder.Sample.csproj", "{6263DDFB-E0A5-4F27-8920-390C5A69AEE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byndyusoft.Data.Relational.QueryBuilder.Sample", "example\Byndyusoft.Data.Relational.QueryBuilder.Sample\Byndyusoft.Data.Relational.QueryBuilder.Sample.csproj", "{6263DDFB-E0A5-4F27-8920-390C5A69AEE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
