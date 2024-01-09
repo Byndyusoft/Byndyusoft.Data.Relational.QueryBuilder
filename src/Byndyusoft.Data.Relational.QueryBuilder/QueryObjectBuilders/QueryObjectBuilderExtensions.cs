@@ -1,7 +1,7 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Byndyusoft.Data.Relational.QueryBuilder.Interfaces;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 using System.Collections.Generic;
+using Byndyusoft.Data.Relational.QueryBuilder.Abstractions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
 {

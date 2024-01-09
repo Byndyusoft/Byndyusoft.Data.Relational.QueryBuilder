@@ -1,5 +1,4 @@
 using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Byndyusoft.Data.Relational.QueryBuilder.Interfaces;
 using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Byndyusoft.Data.Relational.QueryBuilder.Abstractions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
 {
