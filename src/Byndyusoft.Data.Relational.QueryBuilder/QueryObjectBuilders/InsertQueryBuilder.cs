@@ -1,11 +1,11 @@
-using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
-using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
-using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
+using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
+using Dapper;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
 {
@@ -201,7 +201,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
             return base.WithConflictDoNothing(property);
         }
 
-        public InsertQueryBuilder<T> AllPublicValues(Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+        public InsertQueryBuilder<T> AllPublicValues(
+            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
         {
             var properties = Entity.GetPublicPropertyInfos();
             if (transformer != null)

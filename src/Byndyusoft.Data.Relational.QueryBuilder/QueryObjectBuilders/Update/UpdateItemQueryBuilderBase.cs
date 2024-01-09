@@ -1,9 +1,9 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
-using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
+using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Update
 {
@@ -34,7 +34,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Update
             return (TBuilder)this;
         }
 
-        public TBuilder AllPublicValues(Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+        public TBuilder AllPublicValues(
+            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
         {
             var properties = Entity.GetPublicPropertyInfos();
             if (transformer != null)

@@ -1,7 +1,7 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Text;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {
@@ -33,7 +33,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             AddExpression(ColumnConverter.Map(expression, tableAlias));
         }
 
-        public void AddExpression<T, T2>(Expression<Func<T, T2, string>> expression, string? tableAlias = null, string? table2Alias = null)
+        public void AddExpression<T, T2>(Expression<Func<T, T2, string>> expression, string? tableAlias = null,
+            string? table2Alias = null)
         {
             AddExpression(ColumnConverter.Map(expression, tableAlias, table2Alias));
         }
@@ -47,12 +48,15 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
         public void Add(string tableName, string? tableAlias = null, bool withNoLock = false)
         {
             if (withNoLock)
-                AddExpression(string.IsNullOrEmpty(tableAlias) ? $"{tableName} {NolockExpr}" : $"{tableName} AS {tableAlias} {NolockExpr}");
+                AddExpression(string.IsNullOrEmpty(tableAlias)
+                    ? $"{tableName} {NolockExpr}"
+                    : $"{tableName} AS {tableAlias} {NolockExpr}");
             else
                 AddExpression(string.IsNullOrEmpty(tableAlias) ? tableName : $"{tableName} AS {tableAlias}");
         }
 
-        public void AddJoin(string joinType, string tableName, string? tableAlias, string condition, bool withNoLock = false)
+        public void AddJoin(string joinType, string tableName, string? tableAlias, string condition,
+            bool withNoLock = false)
         {
             if (withNoLock)
                 AddExpression($"{joinType} {tableName} AS {tableAlias} {NolockExpr} ON {condition}");

@@ -1,12 +1,12 @@
-using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
-using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Byndyusoft.Data.Relational.QueryBuilder.Abstractions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
+using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
 {
@@ -16,7 +16,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
         private readonly T _entity;
         private readonly string _tableName;
         private readonly ValueCollector _valueCollector;
-        private string[]? _conflictColumnNames = null;
+        private string[]? _conflictColumnNames;
 
         private UpsertQueryBuilder(T entity, string tableName, bool isPostgres)
         {
@@ -36,7 +36,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
             return new UpsertQueryBuilderPropertyPicker<T>(builder);
         }
 
-        internal void IncludeAllPublicValues(Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+        internal void IncludeAllPublicValues(
+            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
         {
             var properties = _entity.GetPublicPropertyInfos();
             if (transformer != null)
@@ -57,7 +58,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
 
         internal void SetConflictingProperties<TProp>(params Expression<Func<T, TProp>>[] property)
         {
-            _conflictColumnNames = property.Select(propertyExpression => _columnConverter.ToColumnName(propertyExpression)).ToArray();
+            _conflictColumnNames = property
+                .Select(propertyExpression => _columnConverter.ToColumnName(propertyExpression)).ToArray();
         }
 
         public QueryObject Build()
@@ -68,7 +70,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
             var sql = new StringBuilder();
 
             var fieldParameters = _valueCollector.FieldParameters;
-            var insertIntoStatement = $"INSERT INTO {_tableName}({string.Join(", ", fieldParameters.Select(x => x.Field))})";
+            var insertIntoStatement =
+                $"INSERT INTO {_tableName}({string.Join(", ", fieldParameters.Select(x => x.Field))})";
             sql.Append(insertIntoStatement);
             var insertValues = $"VALUES ({string.Join(", ", fieldParameters.Select(x => x.ParamName))})";
             sql.Append(insertValues);

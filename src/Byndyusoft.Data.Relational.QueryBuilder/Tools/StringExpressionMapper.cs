@@ -14,9 +14,9 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Tools
         {
             var type = typeof(string);
             Methods = type.GetMethods(BindingFlags.Public | BindingFlags.Static).Where(i =>
-                                                                                           i.Name == nameof(string.Format) &&
-                                                                                           i.GetParameters()[0].ParameterType ==
-                                                                                           typeof(string)).ToArray();
+                i.Name == nameof(string.Format) &&
+                i.GetParameters()[0].ParameterType ==
+                typeof(string)).ToArray();
         }
 
         public static string Map<T>(Expression<Func<T, string>> formatter,

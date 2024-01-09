@@ -1,7 +1,7 @@
-using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using Byndyusoft.Data.Relational.QueryBuilder.Abstractions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {
@@ -29,7 +29,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             return this;
         }
 
-        public FromCollectorWrapper<T> LeftJoin<TTo>(string tableToName, string tableToAlias, Expression<Func<T, TTo, string>> formatString)
+        public FromCollectorWrapper<T> LeftJoin<TTo>(string tableToName, string tableToAlias,
+            Expression<Func<T, TTo, string>> formatString)
         {
             _fromCollector.AddLeftJoin(tableToName, tableToAlias,
                 _fromCollector.ColumnConverter.Map(formatString, _tableAlias, tableToAlias));
@@ -67,13 +68,15 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             return this;
         }
 
-        public FromCollectorWrapper<T> AddExpression<T2>(Expression<Func<T2, string>> expression, string? tableAlias = null)
+        public FromCollectorWrapper<T> AddExpression<T2>(Expression<Func<T2, string>> expression,
+            string? tableAlias = null)
         {
             _fromCollector.AddExpression(expression, tableAlias);
             return this;
         }
 
-        public FromCollectorWrapper<T> AddExpression<T2>(Expression<Func<T, T2, string>> expression, string? table2Alias = null)
+        public FromCollectorWrapper<T> AddExpression<T2>(Expression<Func<T, T2, string>> expression,
+            string? table2Alias = null)
         {
             _fromCollector.AddExpression(expression, _tableAlias, table2Alias);
             return this;

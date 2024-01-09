@@ -1,4 +1,4 @@
-using Byndyusoft.Data.Relational.QueryBuilder.Abstractions;
+﻿using Byndyusoft.Data.Relational.QueryBuilder.Abstractions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {

@@ -2,7 +2,8 @@
 {
     public class UpdateQueryBuilder : UpdateQueryBuilderBase<UpdateQueryBuilder>
     {
-        protected UpdateQueryBuilder(string tableName, string? tableAlias, bool isPostgres) : base(tableName, tableAlias, isPostgres)
+        protected UpdateQueryBuilder(string tableName, string? tableAlias, bool isPostgres) : base(tableName,
+            tableAlias, isPostgres)
         {
         }
 
@@ -14,7 +15,8 @@
 
     public class UpdateQueryBuilder<T> : UpdateQueryBuilderBase<UpdateQueryBuilder<T>, T>
     {
-        private UpdateQueryBuilder(string tableName, string? tableAlias, bool isPostgres) : base(tableName, tableAlias, isPostgres)
+        private UpdateQueryBuilder(string tableName, string? tableAlias, bool isPostgres) : base(tableName, tableAlias,
+            isPostgres)
         {
         }
 

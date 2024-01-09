@@ -17,7 +17,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.DataAccess.Repositories
         public async Task<CompanyReportDto[]> GetAsync(CancellationToken cancellationToken)
         {
             var queryObject = new SelectQuery().Build();
-            var companyReportDtos = await DbSession.QueryAsync<CompanyReportDto>(queryObject, cancellationToken: cancellationToken);
+            var companyReportDtos =
+                await DbSession.QueryAsync<CompanyReportDto>(queryObject, cancellationToken: cancellationToken);
             return companyReportDtos.ToArray();
         }
 
@@ -44,7 +45,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.DataAccess.Repositories
                         u => $"SUM(CASE WHEN {u.Id} IS NULL THEN 0 ELSE 1 END)",
                         Aliases.Users)
                     .From<Company>(Aliases.Company)
-                        .Get(c => c.Name, dto => dto.CompanyName);
+                    .Get(c => c.Name, dto => dto.CompanyName);
             }
         }
     }

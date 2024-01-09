@@ -1,9 +1,9 @@
-using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Dapper;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {
@@ -27,8 +27,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
         {
             yield return Parameters;
             foreach (var conditionalCollectorChunk in Chunks)
-                foreach (var parameters in conditionalCollectorChunk.GetParameters())
-                    yield return parameters;
+            foreach (var parameters in conditionalCollectorChunk.GetParameters())
+                yield return parameters;
         }
 
         public ConditionalCollector GetNextOrConditionalCollector()
@@ -107,7 +107,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             Add(sql, template);
         }
 
-        public void AddExpression<T>(Expression<Func<T, string>> formatString, object? template = null, string? tableAlias = null)
+        public void AddExpression<T>(Expression<Func<T, string>> formatString, object? template = null,
+            string? tableAlias = null)
         {
             Add(ColumnConverter.Map(formatString, tableAlias), template);
         }
@@ -246,7 +247,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             AddBinary(func, value, ">=", tableAlias);
         }
 
-        public void AddGreaterOrEqual<T, TProp>(Expression<Func<T, TProp?>> func, TProp value, string? tableAlias = null)
+        public void AddGreaterOrEqual<T, TProp>(Expression<Func<T, TProp?>> func, TProp value,
+            string? tableAlias = null)
             where TProp : struct
         {
             AddBinary(func, value, ">=", tableAlias);
@@ -271,13 +273,15 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             AddInForExpression(columnNameWithAlias, values);
         }
 
-        public void AddIn<T, TProp>(Expression<Func<T, TProp>> func, IReadOnlyCollection<TProp> values, string? tableAlias = null)
+        public void AddIn<T, TProp>(Expression<Func<T, TProp>> func, IReadOnlyCollection<TProp> values,
+            string? tableAlias = null)
         {
             var columnName = ColumnConverter.ToColumnName(func, tableAlias);
             AddInForExpression(columnName, values);
         }
 
-        public void AddIn<T, TProp>(Expression<Func<T, TProp?>> func, IReadOnlyCollection<TProp> values, string? tableAlias = null)
+        public void AddIn<T, TProp>(Expression<Func<T, TProp?>> func, IReadOnlyCollection<TProp> values,
+            string? tableAlias = null)
             where TProp : struct
         {
             var columnName = ColumnConverter.ToColumnName(func, tableAlias);
@@ -298,13 +302,15 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             AddNotInForExpression(columnNameWithAlias, values);
         }
 
-        public void AddNotIn<T, TProp>(Expression<Func<T, TProp>> func, IReadOnlyCollection<TProp> values, string? tableAlias = null)
+        public void AddNotIn<T, TProp>(Expression<Func<T, TProp>> func, IReadOnlyCollection<TProp> values,
+            string? tableAlias = null)
         {
             var columnName = ColumnConverter.ToColumnName(func, tableAlias);
             AddNotInForExpression(columnName, values);
         }
 
-        public void AddNotIn<T, TProp>(Expression<Func<T, TProp?>> func, IReadOnlyCollection<TProp> values, string? tableAlias = null)
+        public void AddNotIn<T, TProp>(Expression<Func<T, TProp?>> func, IReadOnlyCollection<TProp> values,
+            string? tableAlias = null)
             where TProp : struct
         {
             var columnName = ColumnConverter.ToColumnName(func, tableAlias);

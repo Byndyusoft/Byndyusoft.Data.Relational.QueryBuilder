@@ -69,26 +69,30 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             return this;
         }
 
-        public ConditionalCollectorWrapper<T> AddIn<TProp>(Expression<Func<T, TProp>> property, IReadOnlyCollection<TProp> values)
+        public ConditionalCollectorWrapper<T> AddIn<TProp>(Expression<Func<T, TProp>> property,
+            IReadOnlyCollection<TProp> values)
         {
             _conditionalCollector.AddIn(property, values, TableAlias);
             return this;
         }
 
-        public ConditionalCollectorWrapper<T> AddIn<TProp>(Expression<Func<T, TProp?>> property, IReadOnlyCollection<TProp> values)
+        public ConditionalCollectorWrapper<T> AddIn<TProp>(Expression<Func<T, TProp?>> property,
+            IReadOnlyCollection<TProp> values)
             where TProp : struct
         {
             _conditionalCollector.AddIn(property, values, TableAlias);
             return this;
         }
 
-        public ConditionalCollectorWrapper<T> AddNotIn<TProp>(Expression<Func<T, TProp>> property, IReadOnlyCollection<TProp> values)
+        public ConditionalCollectorWrapper<T> AddNotIn<TProp>(Expression<Func<T, TProp>> property,
+            IReadOnlyCollection<TProp> values)
         {
             _conditionalCollector.AddNotIn(property, values, TableAlias);
             return this;
         }
 
-        public ConditionalCollectorWrapper<T> AddNotIn<TProp>(Expression<Func<T, TProp?>> property, IReadOnlyCollection<TProp> values)
+        public ConditionalCollectorWrapper<T> AddNotIn<TProp>(Expression<Func<T, TProp?>> property,
+            IReadOnlyCollection<TProp> values)
             where TProp : struct
         {
             _conditionalCollector.AddNotIn(property, values, TableAlias);

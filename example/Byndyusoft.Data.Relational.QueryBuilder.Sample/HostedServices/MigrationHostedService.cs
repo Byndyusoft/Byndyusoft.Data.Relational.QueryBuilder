@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Byndyusoft.Data.Relational.QueryBuilder.Sample.Migrations;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 #pragma warning disable 1998
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.HostedServices

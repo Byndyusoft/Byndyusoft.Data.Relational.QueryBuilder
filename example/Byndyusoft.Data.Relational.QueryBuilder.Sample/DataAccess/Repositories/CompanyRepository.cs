@@ -19,7 +19,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.DataAccess.Repositories
         public async Task<Company?> GetByIdAsync(long id, CancellationToken cancellationToken)
         {
             var queryObject = new SelectQuery().ById(id).Build();
-            return await DbSession.QuerySingleOrDefaultAsync<Company?>(queryObject, cancellationToken: cancellationToken);
+            return await DbSession.QuerySingleOrDefaultAsync<Company?>(queryObject,
+                cancellationToken: cancellationToken);
         }
 
         public async Task<Company[]> GetByNameAsync(string name, CancellationToken cancellationToken)
