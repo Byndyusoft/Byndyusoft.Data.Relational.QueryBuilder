@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Sort;
+﻿using Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Sort;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure.PropertyTransformers
 {

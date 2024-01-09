@@ -1,4 +1,4 @@
-﻿namespace Byndyusoft.Data.Relational.QueryBuilder.Page
+namespace Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Page
 {
     public class CountModel
     {

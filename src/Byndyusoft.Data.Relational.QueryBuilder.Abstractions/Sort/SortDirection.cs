@@ -1,4 +1,4 @@
-﻿namespace Byndyusoft.Data.Relational.QueryBuilder.Sort
+namespace Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Sort
 {
     public enum SortDirection
     {

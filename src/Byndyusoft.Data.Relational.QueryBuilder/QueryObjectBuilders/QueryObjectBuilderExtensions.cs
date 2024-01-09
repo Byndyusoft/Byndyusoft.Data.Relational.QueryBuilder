@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Byndyusoft.Data.Relational.QueryBuilder.Abstractions;
+using Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Extensions;
 using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 

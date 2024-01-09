@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Text;
+using Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Sort;
 using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure.PropertyTransformers;
-using Byndyusoft.Data.Relational.QueryBuilder.Sort;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {
