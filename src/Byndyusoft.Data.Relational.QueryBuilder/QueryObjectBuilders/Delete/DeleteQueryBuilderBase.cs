@@ -1,7 +1,7 @@
-using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Delete
 {

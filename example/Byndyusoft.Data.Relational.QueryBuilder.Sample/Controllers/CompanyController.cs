@@ -21,8 +21,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Company>> GetByIdAsync(
-            [FromRoute]long id, 
-            [FromServices]CompanyRepository companyRepository, 
+            [FromRoute] long id,
+            [FromServices] CompanyRepository companyRepository,
             CancellationToken cancellationToken)
         {
             await using var session = await _dbSessionFactory.CreateSessionAsync(cancellationToken);

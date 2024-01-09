@@ -1,5 +1,5 @@
-﻿using Npgsql.NameTranslation;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using Npgsql.NameTranslation;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {

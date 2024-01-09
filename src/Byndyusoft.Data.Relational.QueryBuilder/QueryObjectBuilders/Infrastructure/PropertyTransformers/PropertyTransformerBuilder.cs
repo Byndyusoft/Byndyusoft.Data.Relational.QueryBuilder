@@ -1,6 +1,6 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure.PropertyTransformers
 {

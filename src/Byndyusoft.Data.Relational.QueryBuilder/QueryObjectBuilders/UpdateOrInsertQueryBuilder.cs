@@ -1,8 +1,8 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
-using Dapper;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
+using Dapper;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
 {
@@ -59,7 +59,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
 
         public QueryObject Build()
         {
-            var allInsertParameters = _insertValueCollector.FieldParameters.Concat(_upsertValueCollector.FieldParameters).ToArray();
+            var allInsertParameters = _insertValueCollector.FieldParameters
+                .Concat(_upsertValueCollector.FieldParameters).ToArray();
             var updateFields = _upsertValueCollector.FieldParameters.Select(x => $"{x.Field}={x.ParamName}");
 
             var conditionals = new ConditionalCollector(_columnConverter);

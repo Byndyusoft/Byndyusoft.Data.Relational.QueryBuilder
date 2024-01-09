@@ -1,4 +1,4 @@
-﻿namespace Byndyusoft.Data.Relational.QueryBuilder.Interfaces
+namespace Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Extensions
 {
     public interface IEntity
     {

@@ -1,7 +1,7 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Page;
+﻿using System;
+using Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Page;
 using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using Dapper;
-using System;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
 {

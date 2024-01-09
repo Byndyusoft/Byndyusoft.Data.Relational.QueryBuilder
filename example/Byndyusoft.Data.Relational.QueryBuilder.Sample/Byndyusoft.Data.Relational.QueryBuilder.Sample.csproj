@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Byndyusoft.Data.Relational.QueryBuilder.Abstractions\Byndyusoft.Data.Relational.QueryBuilder.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Byndyusoft.Data.Relational.QueryBuilder\Byndyusoft.Data.Relational.QueryBuilder.csproj" />
   </ItemGroup>
 

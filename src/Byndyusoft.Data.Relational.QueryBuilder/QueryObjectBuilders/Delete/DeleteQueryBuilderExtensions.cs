@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Interfaces;
+using Byndyusoft.Data.Relational.QueryBuilder.Abstractions.Extensions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Delete
 {

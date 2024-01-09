@@ -54,10 +54,10 @@ WHERE
             {
                 SelectCollector.To<UserDto>()
                     .From<User>(Aliases.Users)
-                        .Get(u => u.Login, dto => dto.Login)
-                        .Get(u => u.Password, dto => dto.Password)
+                    .Get(u => u.Login, dto => dto.Login)
+                    .Get(u => u.Password, dto => dto.Password)
                     .Other<Company>(Aliases.Company)
-                        .Get(c => c.Name, dto => dto.CompanyName);
+                    .Get(c => c.Name, dto => dto.CompanyName);
             }
 
             public SelectQuery ById(long id)

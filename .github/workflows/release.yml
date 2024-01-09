@@ -33,3 +33,13 @@ jobs:
           TAG_COMMIT: false
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           INCLUDE_SYMBOLS: true
+        
+      - name: publish Byndyusoft.Data.Relational.QueryBuilder.Abstractions
+        uses: alirezanet/publish-nuget@v3.0.0
+        with:
+          PROJECT_FILE_PATH: src/Byndyusoft.Data.Relational.QueryBuilder.Abstractions/Byndyusoft.Data.Relational.QueryBuilder.Abstractions.csproj
+          VERSION_FILE_PATH: Directory.Build.props
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          TAG_COMMIT: false
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true

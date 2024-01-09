@@ -1,7 +1,7 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Text;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {
@@ -66,7 +66,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             Add(expression, propertyName);
         }
 
-        public void AddExpression<T, TProp>(Func<ColumnConverter, string> expression, Expression<Func<T, TProp>> property)
+        public void AddExpression<T, TProp>(Func<ColumnConverter, string> expression,
+            Expression<Func<T, TProp>> property)
         {
             var columnName = expression(_columnConverter);
             var propertyName = property.GetPropertyName();

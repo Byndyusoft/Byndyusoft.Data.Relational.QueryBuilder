@@ -1,5 +1,5 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
-using System;
+﻿using System;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
 {

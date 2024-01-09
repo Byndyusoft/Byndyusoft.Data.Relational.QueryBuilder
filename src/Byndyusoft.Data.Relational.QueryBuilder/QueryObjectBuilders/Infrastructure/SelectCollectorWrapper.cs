@@ -1,8 +1,8 @@
-﻿using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
 {
@@ -12,7 +12,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
         private readonly SelectCollector _selectCollector;
         private readonly string? _tableAlias;
 
-        private SelectCollectorWrapper(SelectCollector selectCollector, ColumnConverter columnConverter, string? tableAlias)
+        private SelectCollectorWrapper(SelectCollector selectCollector, ColumnConverter columnConverter,
+            string? tableAlias)
         {
             _selectCollector = selectCollector;
             _columnConverter = columnConverter;
@@ -170,7 +171,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
             return this;
         }
 
-        public SelectCollectorWrapper<T, TDto> GetAllPublicValues(Func<IEnumerable<string>, IEnumerable<string>>? transformer = null)
+        public SelectCollectorWrapper<T, TDto> GetAllPublicValues(
+            Func<IEnumerable<string>, IEnumerable<string>>? transformer = null)
         {
             var publicPropertyNames = TypeCache<T>.GetPublicPropertyNames();
             if (transformer != null)
@@ -181,7 +183,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
 
         public SelectCollectorWrapper<TOther, TDto> Other<TOther>(string tableAlias)
         {
-            return SelectCollectorWrapper<TOther, TDto>.For(_selectCollector, _columnConverter, _baseSelectCollectorWrapper, tableAlias);
+            return SelectCollectorWrapper<TOther, TDto>.For(_selectCollector, _columnConverter,
+                _baseSelectCollectorWrapper, tableAlias);
         }
 
         public string GetSelectClause()

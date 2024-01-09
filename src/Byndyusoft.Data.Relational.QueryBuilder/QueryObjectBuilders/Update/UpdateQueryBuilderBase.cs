@@ -1,11 +1,11 @@
-using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
-using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
-using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
-using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
+using Byndyusoft.Data.Relational.QueryBuilder.Reflection;
+using Dapper;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Update
 {
@@ -70,7 +70,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Update
             return (TBuilder)this;
         }
 
-        public TBuilder From<T>(Expression<Func<T, string>> formatString, string? table2Alias = null, object? parametersObj = null)
+        public TBuilder From<T>(Expression<Func<T, string>> formatString, string? table2Alias = null,
+            object? parametersObj = null)
         {
             _from = QueryBuilder<T>.For(ColumnConverter).Get(formatString, table2Alias);
             _fromParametersObj = parametersObj;
@@ -104,7 +105,8 @@ WHERE {Conditionals.GetConditional()}";
     public abstract class UpdateQueryBuilderBase<TBuilder, T> : UpdateQueryBuilderBase<TBuilder>
         where TBuilder : UpdateQueryBuilderBase<TBuilder, T>
     {
-        protected UpdateQueryBuilderBase(string tableName, string? tableAlias, bool isPostgres) : base(tableName, tableAlias, isPostgres)
+        protected UpdateQueryBuilderBase(string tableName, string? tableAlias, bool isPostgres) : base(tableName,
+            tableAlias, isPostgres)
         {
         }
 
