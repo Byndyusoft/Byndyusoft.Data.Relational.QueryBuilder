@@ -12,7 +12,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Byndyusoft.Data.Relational.Abstractions" Version="0.8.0" />
-		<PackageReference Include="Npgsql" Version="6.0.3" />
+		<PackageReference Include="Npgsql" Version="8.0.2" />
 	</ItemGroup>
 	
 	<PropertyGroup>
