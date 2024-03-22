@@ -9,7 +9,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
     {
         public static IEnumerable<TypePropertyInfo> ExcludeId(this IEnumerable<TypePropertyInfo> properties)
         {
-            return properties.Exclude<IEntity, long>(i => i.Id);
+            return properties.Exclude<IEntity>(i => i.Id);
         }
 
         public static IEnumerable<string> ExcludeId(this IEnumerable<string> properties)
