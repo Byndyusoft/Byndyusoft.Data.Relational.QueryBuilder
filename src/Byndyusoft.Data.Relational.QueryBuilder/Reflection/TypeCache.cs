@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +7,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Reflection
 {
     public class TypeCache<T>
     {
-        private static readonly Lazy<TypeCache<T>> Lazy = new Lazy<TypeCache<T>>(() => new TypeCache<T>());
+        private static readonly Lazy<TypeCache<T>> Lazy = new(() => new TypeCache<T>());
 
         private readonly PropertyInfo[] _publicProperties;
 
@@ -20,12 +20,12 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Reflection
 
         private static TypeCache<T> Instance => Lazy.Value;
 
-        public static IEnumerable<TypePropertyInfo> GetPublicPropertyInfos(T value)
+        public static IEnumerable<TypePropertyInfo<T>> GetPublicPropertyInfos(T value)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            return Instance._publicProperties.Select(i => new TypePropertyInfo(i.Name, i.GetValue(value)));
+            return Instance._publicProperties.Select(i => new TypePropertyInfo<T>(i.Name, i.GetValue(value)));
         }
 
         public static IEnumerable<string> GetPublicPropertyNames()

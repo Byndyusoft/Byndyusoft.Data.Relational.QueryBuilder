@@ -218,7 +218,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
         }
 
         public InsertQueryBuilder<T> AllPublicValues(
-            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+            Func<IEnumerable<TypePropertyInfo<T>>, IEnumerable<TypePropertyInfo<T>>>? transformer = null)
         {
             var properties = Entity.GetPublicPropertyInfos();
             if (transformer != null)

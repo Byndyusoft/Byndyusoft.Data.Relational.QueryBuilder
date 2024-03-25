@@ -10,7 +10,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
     {
         public static UpsertQueryBuilder<T> UpsertAllPublicValues<T>(
             this UpsertQueryBuilder<T> builder, 
-            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+            Func<IEnumerable<TypePropertyInfo<T>>, IEnumerable<TypePropertyInfo<T>>>? transformer = null)
             where T : IEntity
         {
             return builder.AllPublicValues(i =>

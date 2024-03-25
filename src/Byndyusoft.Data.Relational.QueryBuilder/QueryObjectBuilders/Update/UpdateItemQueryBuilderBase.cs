@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
@@ -35,7 +35,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Update
         }
 
         public TBuilder AllPublicValues(
-            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+            Func<IEnumerable<TypePropertyInfo<T>>, IEnumerable<TypePropertyInfo<T>>>? transformer = null)
         {
             var properties = Entity.GetPublicPropertyInfos();
             if (transformer != null)

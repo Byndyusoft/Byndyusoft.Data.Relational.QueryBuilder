@@ -9,7 +9,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
     {
         public static InsertQueryBuilder<T> InsertAllPublicValues<T>(
             this InsertQueryBuilder<T> builder,
-            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+            Func<IEnumerable<TypePropertyInfo<T>>, IEnumerable<TypePropertyInfo<T>>>? transformer = null)
             where T : IEntity
         {
             return builder.AllPublicValues(i =>
