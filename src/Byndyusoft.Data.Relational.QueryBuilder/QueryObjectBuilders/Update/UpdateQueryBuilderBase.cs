@@ -42,31 +42,34 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Update
             return (TBuilder)this;
         }
 
-        public TBuilder Set(string fieldName, object? value)
+        public TBuilder Set(string fieldName, object? value, Func<string, string>? paramValueTransformer = null)
         {
-            ValueCollector.Add(fieldName, value);
+            ValueCollector.Add(fieldName, value, paramValueTransformer);
             return (TBuilder)this;
         }
 
-        public TBuilder Set(TypePropertyInfo propertyInfo)
+        public TBuilder Set(TypePropertyInfo propertyInfo, Func<string, string>? paramValueTransformer = null)
         {
-            ValueCollector.Add(ColumnConverter.ToColumnName(propertyInfo.Name), propertyInfo.Value);
+            ValueCollector.Add(ColumnConverter.ToColumnName(propertyInfo.Name), propertyInfo.Value, paramValueTransformer);
             return (TBuilder)this;
         }
 
-        public TBuilder Set<T, TProp>(Expression<Func<T, TProp>> action, TProp value)
+        public TBuilder Set<T, TProp>(Expression<Func<T, TProp>> action, TProp value, Func<string, string>? paramValueTransformer = null)
         {
             var fieldName = ColumnConverter.ToColumnName(action);
 
-            Set(fieldName, value);
+            Set(fieldName, value, paramValueTransformer);
             return (TBuilder)this;
         }
 
-        public TBuilder SetCustomValue<T, TProp>(Expression<Func<T, TProp>> action, object? customValue)
+        public TBuilder SetCustomValue<T, TProp>(
+            Expression<Func<T, TProp>> action, 
+            object? customValue, 
+            Func<string, string>? paramValueTransformer = null)
         {
             var fieldName = ColumnConverter.ToColumnName(action);
 
-            Set(fieldName, customValue);
+            Set(fieldName, customValue, paramValueTransformer);
             return (TBuilder)this;
         }
 
@@ -110,15 +113,18 @@ WHERE {Conditionals.GetConditional()}";
         {
         }
 
-        public TBuilder Set<TProp>(Expression<Func<T, TProp>> action, TProp value)
+        public TBuilder Set<TProp>(Expression<Func<T, TProp>> action, TProp value, Func<string, string>? paramValueTransformer = null)
         {
-            Set<T, TProp>(action, value);
+            Set<T, TProp>(action, value, paramValueTransformer);
             return (TBuilder)this;
         }
 
-        public TBuilder SetCustomValue<TProp>(Expression<Func<T, TProp>> action, object? customValue)
+        public TBuilder SetCustomValue<TProp>(
+            Expression<Func<T, TProp>> action, 
+            object? customValue, 
+            Func<string, string>? paramValueTransformer = null)
         {
-            SetCustomValue<T, TProp>(action, customValue);
+            SetCustomValue<T, TProp>(action, customValue, paramValueTransformer);
             return (TBuilder)this;
         }
 

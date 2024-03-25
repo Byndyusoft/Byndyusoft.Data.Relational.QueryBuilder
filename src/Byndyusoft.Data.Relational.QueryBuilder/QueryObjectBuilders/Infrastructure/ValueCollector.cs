@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Dapper;
 
 namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure
@@ -19,17 +20,25 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
         public DynamicParameters ParametersValues { get; } = new DynamicParameters();
         public List<FieldParameter> FieldParameters { get; } = new List<FieldParameter>();
 
-        public void Add(string field, object? value)
+        public void Add(string field, object? value, Func<string, string>? paramValueTransformer = null)
         {
             var paramName = _paramNamePrefix + ++_counter;
 
             ParametersValues.AddParamValue(paramName, _columnConverter.ToArgument(value));
-            FieldParameters.Add(new FieldParameter(field, paramName));
+            AddFieldParameter(field, paramName, paramValueTransformer);
         }
 
         // Метод нужен, когда подается не параметр, а, например, вычисляется
-        public void AddExpression(string field, string value)
+        public void AddExpression(string field, string value, Func<string, string>? paramValueTransformer = null)
         {
+            AddFieldParameter(field, value, paramValueTransformer);
+        }
+
+        private void AddFieldParameter(string field, string value, Func<string, string>? paramValueTransformer)
+        {
+            if (paramValueTransformer is not null)
+                value = paramValueTransformer.Invoke(value);
+
             FieldParameters.Add(new FieldParameter(field, value));
         }
     }

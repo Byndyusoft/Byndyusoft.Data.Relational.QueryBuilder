@@ -29,54 +29,62 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
             return new InsertQueryBuilder(tableName);
         }
 
-        public InsertQueryBuilder ValueExpression(string fieldName, string value)
+        public InsertQueryBuilder ValueExpression(string fieldName, string value, Func<string, string>? paramValueTransformer = null)
         {
-            ValueCollector.AddExpression(fieldName, value);
+            ValueCollector.AddExpression(fieldName, value, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder Value(string fieldName, object? value)
+        public InsertQueryBuilder Value(string fieldName, object? value, Func<string, string>? paramValueTransformer = null)
         {
-            ValueCollector.Add(fieldName, value);
+            ValueCollector.Add(fieldName, value, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder Value(TypePropertyInfo propertyInfo)
+        public InsertQueryBuilder Value(TypePropertyInfo propertyInfo, Func<string, string>? paramValueTransformer = null)
         {
-            ValueCollector.Add(ColumnConverter.ToColumnName(propertyInfo.Name), propertyInfo.Value);
+            ValueCollector.Add(ColumnConverter.ToColumnName(propertyInfo.Name), propertyInfo.Value, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder ValueExpression<T, TProp>(Expression<Func<T, TProp>> action, string value)
+        public InsertQueryBuilder ValueExpression<T, TProp>(
+            Expression<Func<T, TProp>> action, 
+            string value, Func<string, string>? paramValueTransformer = null)
         {
             string fieldName = ColumnConverter.ToColumnName(action);
 
-            ValueExpression(fieldName, value);
+            ValueExpression(fieldName, value, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder Value<T, TProp>(T item, Expression<Func<T, TProp>> action)
+        public InsertQueryBuilder Value<T, TProp>(
+            T item, 
+            Expression<Func<T, TProp>> action, 
+            Func<string, string>? paramValueTransformer = null)
         {
             string fieldName = ColumnConverter.ToColumnName(action);
             var value = ExpressionsCache<T, TProp>.Get(action)(item);
 
-            Value(fieldName, value);
+            Value(fieldName, value, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder Value<T, TProp>(Expression<Func<T, TProp>> action, TProp value)
+        public InsertQueryBuilder Value<T, TProp>(Expression<Func<T, TProp>> action, TProp value, Func<string, string>? paramValueTransformer = null)
         {
             string fieldName = ColumnConverter.ToColumnName(action);
 
-            Value(fieldName, value);
+            Value(fieldName, value, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder CustomValue<T, TProp>(Expression<Func<T, TProp>> action, object? value)
+        public InsertQueryBuilder CustomValue<T, TProp>(
+            Expression<Func<T, TProp>> action, 
+            object? value, 
+            Func<string, string>? paramValueTransformer = null)
         {
             string fieldName = ColumnConverter.ToColumnName(action);
 
-            Value(fieldName, value);
+            Value(fieldName, value, paramValueTransformer);
             return this;
         }
 
@@ -171,21 +179,29 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
             return new InsertQueryBuilder<T>(item, tableName, isPostgres);
         }
 
-        public InsertQueryBuilder<T> ValueExpression<TProp>(Expression<Func<T, TProp>> action, string value)
+        public InsertQueryBuilder<T> ValueExpression<TProp>(
+            Expression<Func<T, TProp>> action, 
+            string value, 
+            Func<string, string>? paramValueTransformer = null)
         {
-            base.ValueExpression(action, value);
+            base.ValueExpression(action, value, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder<T> Value<TProp>(Expression<Func<T, TProp>> action)
+        public InsertQueryBuilder<T> Value<TProp>(
+            Expression<Func<T, TProp>> action, 
+            Func<string, string>? paramValueTransformer = null)
         {
-            Value(Entity, action);
+            Value(Entity, action, paramValueTransformer);
             return this;
         }
 
-        public InsertQueryBuilder CustomValue<TProp>(Expression<Func<T, TProp>> action, object? customValue)
+        public InsertQueryBuilder CustomValue<TProp>(
+            Expression<Func<T, TProp>> action, 
+            object? customValue, 
+            Func<string, string>? paramValueTransformer = null)
         {
-            CustomValue<T, TProp>(action, customValue);
+            CustomValue<T, TProp>(action, customValue, paramValueTransformer);
             return this;
         }
 
@@ -202,7 +218,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders
         }
 
         public InsertQueryBuilder<T> AllPublicValues(
-            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+            Func<IEnumerable<TypePropertyInfo<T>>, IEnumerable<TypePropertyInfo<T>>>? transformer = null)
         {
             var properties = Entity.GetPublicPropertyInfos();
             if (transformer != null)

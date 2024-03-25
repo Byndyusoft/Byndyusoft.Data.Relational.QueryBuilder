@@ -35,7 +35,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Upsert
         }
 
         public UpsertQueryBuilder<T> AllPublicValues(
-            Func<IEnumerable<TypePropertyInfo>, IEnumerable<TypePropertyInfo>>? transformer = null)
+            Func<IEnumerable<TypePropertyInfo<T>>, IEnumerable<TypePropertyInfo<T>>>? transformer = null)
         {
             var properties = _entity.GetPublicPropertyInfos();
             if (transformer != null)
