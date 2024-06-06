@@ -159,6 +159,19 @@ WHERE {Conditionals.GetConditional()}";
             return (TBuilder)this;
         }
 
+        public TBuilder WhereIsIn<TProp>(Expression<Func<T, TProp>> action, IReadOnlyCollection<TProp> values)
+        {
+            Conditionals.AddIn(action, values);
+            return (TBuilder)this;
+        }
+
+        public TBuilder WhereIsIn<TProp>(Expression<Func<T, TProp?>> action, IReadOnlyCollection<TProp> values)
+            where TProp : struct
+        {
+            Conditionals.AddIn(action, values);
+            return (TBuilder)this;
+        }
+
         public TBuilder WhereIsNotNull<TProp>(Expression<Func<T, TProp>> action)
         {
             Conditionals.AddNotNull(action, TableAlias);
