@@ -5,5 +5,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.DataAccess.Consts
         public static string Company => "companies";
 
         public static string Users => "users";
+
+        public static string Money => "money";
     }
 }
