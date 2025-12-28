@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using Byndyusoft.Data.Relational.QueryBuilder.Extensions;
 
@@ -10,6 +10,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
         {
             IsPostgres = isPostgres;
         }
+
+        public static bool TreatEnumsAsStrings { get; set; } = false;
 
         public bool IsPostgres { get; }
 
@@ -41,8 +43,13 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastruc
                 return null;
 
             var type = value.GetType();
-            if (type.IsEnum && Enum.GetUnderlyingType(type) == typeof(int))
-                return (int)value;
+            if (type.IsEnum)
+            {
+                if (TreatEnumsAsStrings)
+                    return value.ToString();
+                if (Enum.GetUnderlyingType(type) == typeof(int))
+                    return (int)value;
+            }
 
             return value;
         }

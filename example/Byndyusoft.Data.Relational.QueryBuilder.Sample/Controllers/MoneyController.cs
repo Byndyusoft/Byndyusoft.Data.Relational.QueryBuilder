@@ -17,6 +17,15 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.Controllers
             _dbSessionFactory = dbSessionFactory;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<Money[]>> GetAsync(
+            [FromServices] MoneyRepository moneyRepository,
+            CancellationToken cancellationToken)
+        {
+            await using var session = await _dbSessionFactory.CreateSessionAsync(cancellationToken);
+            return await moneyRepository.GetAllAsync(cancellationToken);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Money>> GetByIdAsync(
             [FromRoute] long id,

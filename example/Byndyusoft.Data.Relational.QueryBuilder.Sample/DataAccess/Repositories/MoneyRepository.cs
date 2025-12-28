@@ -35,6 +35,13 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.DataAccess.Repositories
             await DbSession.ExecuteAsync(queryObject, cancellationToken: cancellationToken);
         }
 
+        public async Task<Money[]> GetAllAsync(CancellationToken cancellationToken)
+        {
+            var queryObject = new SelectQuery().Build();
+            var money = await DbSession.QueryAsync<Money>(queryObject, cancellationToken: cancellationToken);
+            return money.ToArray();
+        }
+
         public async Task<Money?> GetByIdAsync(long id, CancellationToken cancellationToken)
         {
             var queryObject = new SelectQuery()

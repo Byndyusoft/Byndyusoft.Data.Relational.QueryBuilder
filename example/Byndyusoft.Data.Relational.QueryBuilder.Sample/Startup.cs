@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Byndyusoft.Data.Relational.QueryBuilder.QueryObjectBuilders.Infrastructure;
 using Byndyusoft.Data.Relational.QueryBuilder.Sample.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            ColumnConverter.TreatEnumsAsStrings = true;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
