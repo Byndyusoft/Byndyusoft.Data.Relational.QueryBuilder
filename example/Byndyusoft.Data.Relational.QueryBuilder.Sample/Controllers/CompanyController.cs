@@ -66,7 +66,7 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<long>> UpdateAsync(
+        public async Task<ActionResult> UpdateAsync(
             [FromBody] Company company,
             [FromServices] CompanyRepository companyRepository,
             CancellationToken cancellationToken)

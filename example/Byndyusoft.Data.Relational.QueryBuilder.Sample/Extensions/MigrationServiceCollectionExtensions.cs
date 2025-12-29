@@ -38,7 +38,8 @@ namespace Byndyusoft.Data.Relational.QueryBuilder.Sample.Extensions
             return serviceCollection
                 .AddSingleton<CompanyRepository>()
                 .AddSingleton<UserDtoRepository>()
-                .AddSingleton<CompanyReportDtoRepository>();
+                .AddSingleton<CompanyReportDtoRepository>()
+                .AddSingleton<MoneyRepository>();
         }
     }
 }
